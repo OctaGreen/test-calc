@@ -1,0 +1,32 @@
+<div class="main">
+  <div class="header">
+    <h3 class="equation">{{ equation }}</h3>
+    <h2 class="result">{{ result }}</h2>
+  </div>
+  <div class="content">
+    <app-button (click)="buttonClicked({key: specialKeys.escape})">C</app-button>
+    <app-button (click)="buttonClicked({key: highPriorityOperationKeys.squareRoot})">√</app-button>
+    <app-button (click)="buttonClicked({key: mediumPriorityOperationKeys.obelus})">%</app-button>
+    <app-button (click)="buttonClicked({key: mediumPriorityOperationKeys.divide})">/</app-button>
+
+    <app-button (click)="buttonClicked({key: numericKeys.seven})">7</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.eight})">8</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.nine})">9</app-button>
+    <app-button (click)="buttonClicked({key: mediumPriorityOperationKeys.multiply})">x</app-button>
+
+    <app-button (click)="buttonClicked({key: numericKeys.four})">4</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.five})">5</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.six})">6</app-button>
+    <app-button (click)="buttonClicked({key: lowPriorityOperationKeys.minus})">-</app-button>
+
+    <app-button (click)="buttonClicked({key: numericKeys.one})">1</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.two})">2</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.three})">3</app-button>
+    <app-button (click)="buttonClicked({key: lowPriorityOperationKeys.plus})">+</app-button>
+
+    <app-button (click)="buttonClicked({key: numericKeys.doubleZero})">00</app-button>
+    <app-button (click)="buttonClicked({key: numericKeys.zero})">0</app-button>
+    <app-button (click)="buttonClicked({key: delimiterKeys.comma})">,</app-button>
+    <app-button [type]="appButtonTypes.submit" (click)="buttonClicked({key: specialKeys.enter})">=</app-button>
+  </div>
+</div>
