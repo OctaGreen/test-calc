@@ -114,37 +114,33 @@ export class AppComponent {
     }
 
     private calculateExpression(expression: string): string {
-        // calculate square root
-        const highPriorityOperationsPattern: RegExp = new RegExp(
-            `(\\${Object.values(this.highPriorityOperationKeys).join('|\\')})[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?`
-        );
-        expression = this.performReplacement(
-            expression,
-            highPriorityOperationsPattern,
-            (substr: string) => `${this.performCalculation(substr)}`
-        );
-        // calculate %, /, *
-        const mediumPriorityOperationsPattern: RegExp = new RegExp(
-            `[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?(\\${Object.values(this.mediumPriorityOperationKeys).join(
-                '|\\'
-            )})[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?`
-        );
-        expression = this.performReplacement(
-            expression,
-            mediumPriorityOperationsPattern,
-            (substr: string) => `${this.performCalculation(substr)}`
-        );
-        // calculate +, -
-        const lowPriorityOperationsPattern: RegExp = new RegExp(
-            `[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?(\\${Object.values(this.lowPriorityOperationKeys).join(
-                '|\\'
-            )})[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?`
-        );
-        expression = this.performReplacement(
-            expression,
-            lowPriorityOperationsPattern,
-            (substr: string) => `${this.performCalculation(substr)}`
-        );
+        [
+            // calculate square root
+            new RegExp(
+                `(\\${Object.values(this.highPriorityOperationKeys).join('|\\')})[0-9]+(\\${
+                    DelimiterKeys.comma
+                }[0-9]+)?`
+            ),
+            // calculate %, /, *
+            new RegExp(
+                `[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?(\\${Object.values(this.mediumPriorityOperationKeys).join(
+                    '|\\'
+                )})[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?`
+            ),
+            // calculate +, -
+            new RegExp(
+                `[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?(\\${Object.values(this.lowPriorityOperationKeys).join(
+                    '|\\'
+                )})[0-9]+(\\${DelimiterKeys.comma}[0-9]+)?`
+            )
+        ].forEach((pattern: RegExp) => {
+            expression = this.performReplacement(
+                expression,
+                pattern,
+                (substr: string) => `${this.performCalculation(substr)}`
+            );
+        });
+
         // final expression must be a valid Number, otherwise it's a syntax error
         if (Number.isNaN(Number(expression))) {
             throw 'The syntax of this equation is incorrect';
